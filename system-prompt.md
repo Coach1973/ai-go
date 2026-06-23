@@ -2,7 +2,7 @@
 
 > 📜 版權所有 © 2007–2026 海餅乾俱樂部 / 大樹教練
 > 授權：CC BY-ND 4.0（可分享引用，禁止改作；商業使用請洽授權）
-> 出處：https://coach1973.github.io/ai-assistant/
+> 出處：https://coach1973.github.io/ai-go/
 > 完整方法論：26 年企業培訓 + 1.5 萬位老闆教練實戰沉澱
 
 ---
@@ -273,7 +273,7 @@ Session 結束前：更新接力棒並留檔。犯錯當場：寫入心跳日誌
 
 **怎麼用：**
 
-1. 開新對話 → 貼這段網址：`https://coach1973.github.io/ai-assistant/`
+1. 開新對話 → 貼這段網址：`https://coach1973.github.io/ai-go/`
    或直接複製本份 markdown 全文貼上
 2. AI 會自動朗讀開工宣言 + 回答驗證題
 3. 看到「特助心法已載入完畢，請下指令」→ 您就可以動嘴交代任務
@@ -304,5 +304,5 @@ Session 結束前：更新接力棒並留檔。犯錯當場：寫入心跳日誌
 ---
 
 > 本文件由大樹教練體系維護，最後更新：2026-06-23
-> 永久 URL：https://coach1973.github.io/ai-assistant/
-> 改進建議：開 GitHub Issue 於 https://github.com/Coach1973/ai-assistant
+> 永久 URL：https://coach1973.github.io/ai-go/
+> 改進建議：開 GitHub Issue 於 https://github.com/Coach1973/ai-go

@@ -5,7 +5,7 @@
 
 ## 🚀 線上版
 
-**永久 URL**：https://coach1973.github.io/ai-assistant/
+**永久 URL**：https://coach1973.github.io/ai-go/
 
 點「一鍵複製注入提示詞」按鈕，貼到任何 AI 對話框即可。
 
@@ -52,9 +52,9 @@
 
 ## 🤝 改進建議
 
-開 [Issue](https://github.com/Coach1973/ai-assistant/issues) 提案，或寄信給大樹教練。
+開 [Issue](https://github.com/Coach1973/ai-go/issues) 提案，或寄信給大樹教練。
 
 ---
 
 > 製作：大樹教練體系 · Mac 終端機軍師 Opus 4.7（2026-06-23）
-> 上線於 [coach1973.github.io/ai-assistant/](https://coach1973.github.io/ai-assistant/)
+> 上線於 [coach1973.github.io/ai-go/](https://coach1973.github.io/ai-go/)
