@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大樹教練 AI 特助心法 — 一鍵注入任何 AI</title>
+<meta name="description" content="大樹教練 26 年企業培訓淬煉的 AI 協作方法論。一鍵複製，貼給任何 AI（Claude / ChatGPT / Gemini / Grok），30 秒內進入頂級特助狀態。">
+<meta property="og:title" content="大樹教練 AI 特助心法 — 一鍵注入任何 AI">
+<meta property="og:description" content="老闆動嘴，AI 全自動執行。21 條特助守則，跨平台一鍵注入。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://coach1973.github.io/ai-assistant/">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #FFFBF5;
+  --bg-warm: #FFF8EC;
+  --bg-deep: #FFF3DC;
+  --surface: #FFFFFF;
+  --border: #F0E4D0;
+  --border-strong: #E0D0B0;
+  --primary: #D4692A;        /* 主橘 */
+  --primary-dark: #A84820;
+  --green: #4A8B70;          /* 大樹綠 */
+  --green-dark: #2F6B52;
+  --text: #3D2B1F;
+  --text-dim: #7A6A5A;
+  --text-muted: #A89880;
+  --shadow-sm: 0 2px 8px rgba(61,43,31,0.06);
+  --shadow-md: 0 8px 24px rgba(61,43,31,0.12);
+  --shadow-lg: 0 16px 48px rgba(61,43,31,0.18);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans TC', 'Microsoft JhengHei UI', -apple-system, sans-serif;
+  line-height: 1.8;
+  font-size: 17px;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* === HERO === */
+.hero {
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-warm) 100%);
+  padding: 80px 0 64px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(74,139,112,0.12);
+  color: var(--green-dark);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 900;
+  line-height: 1.25;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.hero h1 .accent { color: var(--primary); }
+.hero-sub {
+  font-size: clamp(17px, 2vw, 22px);
+  color: var(--text-dim);
+  font-weight: 600;
+  max-width: 720px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+}
+.hero-sub strong { color: var(--primary-dark); font-weight: 800; }
+
+/* === 三句話核心 === */
+.creed {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto 56px;
+}
+.creed-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 18px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s;
+}
+.creed-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.creed-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green-dark);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.creed-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+}
+@media (max-width: 640px) {
+  .creed { grid-template-columns: 1fr; }
+}
+
+/* === 一鍵複製按鈕（核心 UX）=== */
+.copy-zone {
+  background: var(--surface);
+  border: 2px solid var(--primary);
+  border-radius: 24px;
+  padding: 40px 32px;
+  max-width: 720px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+.copy-zone-label {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--primary-dark);
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+.copy-zone-title {
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.copy-zone-hint {
+  font-size: 15px;
+  color: var(--text-dim);
+  margin-bottom: 28px;
+}
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 18px 40px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(212,105,42,0.4);
+  transition: all 0.2s;
+  font-family: inherit;
+  letter-spacing: 0.5px;
+  min-width: 280px;
+}
+.btn-copy:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(212,105,42,0.55); }
+.btn-copy:active { transform: translateY(0); }
+.btn-copy.copied {
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+  box-shadow: 0 8px 24px rgba(74,139,112,0.4);
+}
+.btn-icon { font-size: 22px; }
+
+.url-zone {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--border-strong);
+  font-size: 14px;
+  color: var(--text-dim);
+}
+.url-code {
+  display: inline-block;
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-family: 'SF Mono', Menlo, monospace;
+  font-size: 13px;
+  color: var(--primary-dark);
+  font-weight: 700;
+  margin-top: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.url-code:hover { background: var(--bg-warm); }
+
+/* === 怎麼用 3 步驟 === */
+.section {
+  padding: 80px 0;
+}
+.section h2 {
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.section-sub {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 17px;
+  margin-bottom: 48px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 24px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+.step-num {
+  position: absolute;
+  top: -20px;
+  left: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 20px;
+  box-shadow: var(--shadow-md);
+}
+.step h3 {
+  font-size: 19px;
+  font-weight: 800;
+  margin: 12px 0 12px;
+  color: var(--text);
+}
+.step p {
+  color: var(--text-dim);
+  font-size: 15px;
+  line-height: 1.7;
+}
+@media (max-width: 768px) {
+  .steps { grid-template-columns: 1fr; }
+}
+
+/* === 跨平台 === */
+.platforms-section {
+  background: var(--bg-warm);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.platforms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+.platform-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+/* === 心法預覽 === */
+.creed-preview {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 32px;
+  box-shadow: var(--shadow-sm);
+}
+.creed-preview h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 24px;
+  border-left: 4px solid var(--primary);
+  padding-left: 14px;
+}
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 24px;
+  margin-bottom: 32px;
+}
+.rule-item {
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 15px;
+  color: var(--text);
+  font-weight: 600;
+}
+.rule-num {
+  color: var(--primary-dark);
+  font-weight: 800;
+  margin-right: 8px;
+}
+@media (max-width: 640px) {
+  .rules-grid { grid-template-columns: 1fr; }
+}
+
+.see-full {
+  text-align: center;
+  margin-top: 24px;
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--primary-dark);
+  border: 2px solid var(--primary);
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { background: var(--primary); color: #fff; }
+
+/* === 信念區 === */
+.beliefs-section {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
+}
+.beliefs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.belief {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 24px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+.belief-num {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--green);
+  margin-bottom: 8px;
+  font-family: serif;
+}
+.belief h4 {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.belief p {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+@media (max-width: 768px) {
+  .beliefs-grid { grid-template-columns: 1fr; }
+}
+
+/* === 頁尾 === */
+.footer {
+  background: var(--text);
+  color: rgba(255,255,255,0.7);
+  padding: 56px 0 40px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.footer strong { color: #fff; }
+.footer a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.3);
+}
+.footer a:hover { color: #fff; }
+.footer-meta {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* === Toast === */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--green-dark);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transition: all 0.3s;
+  z-index: 999;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">🌳 大樹教練 26 年方法論 · CC BY-ND 4.0</div>
+    <h1>讓任何 AI<br>30 秒變成<span class="accent">頂級特助</span></h1>
+    <p class="hero-sub">
+      一鍵複製，貼給 <strong>Claude</strong> / <strong>ChatGPT</strong> / <strong>Gemini</strong> / <strong>Grok</strong> 任一個 AI——<br>
+      讀完，立刻進入「老闆動嘴，AI 全自動執行」狀態。
+    </p>
+
+    <div class="creed">
+      <div class="creed-card">
+        <div class="creed-label">使 命</div>
+        <div class="creed-text">成為最懂老闆的 AI 特助</div>
+      </div>
+      <div class="creed-card">
+        <div class="creed-label">願 景</div>
+        <div class="creed-text">成為老闆最喜歡的 AI 特助</div>
+      </div>
+      <div class="creed-card">
+        <div class="creed-label">理 念</div>
+        <div class="creed-text">有效溝通就是無價之寶</div>
+      </div>
+    </div>
+
+    <div class="copy-zone">
+      <div class="copy-zone-label">🚀 一鍵注入</div>
+      <div class="copy-zone-title">複製特助系統提示詞</div>
+      <div class="copy-zone-hint">點按鈕 → 貼到任何 AI 對話框 → 看 AI 朗讀開工宣言</div>
+      <button id="copyBtn" class="btn-copy" onclick="copyPrompt()">
+        <span class="btn-icon">📋</span>
+        <span id="copyBtnText">一鍵複製注入提示詞</span>
+      </button>
+      <div class="url-zone">
+        或直接給 AI 這個網址讓它自己讀：<br>
+        <span class="url-code" onclick="copyUrl()" title="點擊複製網址">https://coach1973.github.io/ai-assistant/</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 怎麼用 -->
+<section class="section">
+  <div class="container">
+    <h2>三步驟，動嘴開始</h2>
+    <p class="section-sub">不需要任何技術背景，只要會貼上文字</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>複製</h3>
+        <p>點上方「一鍵複製」按鈕，特助心法全文已進剪貼簿。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>貼上</h3>
+        <p>打開任何 AI 開新對話（Claude、ChatGPT、Gemini 都行），直接貼上。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>動嘴</h3>
+        <p>AI 會自動朗讀開工宣言。看到「請下指令」就開始說話。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 跨平台 -->
+<section class="section platforms-section">
+  <div class="container">
+    <h2>支援所有主流 AI</h2>
+    <p class="section-sub">一份心法，跨平台共用——這是 CC BY-ND 4.0 授權的力量</p>
+    <div class="platforms">
+      <span class="platform"><span class="platform-dot"></span>Claude（含 CLI/桌面/Web）</span>
+      <span class="platform"><span class="platform-dot"></span>ChatGPT（GPT-4o / o1 / o3）</span>
+      <span class="platform"><span class="platform-dot"></span>Gemini</span>
+      <span class="platform"><span class="platform-dot"></span>Grok</span>
+      <span class="platform"><span class="platform-dot"></span>MiniMax</span>
+      <span class="platform"><span class="platform-dot"></span>DeepSeek</span>
+      <span class="platform"><span class="platform-dot"></span>Llama 系列</span>
+      <span class="platform"><span class="platform-dot"></span>任何離線 AI</span>
+    </div>
+  </div>
+</section>
+
+<!-- 三大信念 -->
+<section class="section beliefs-section">
+  <div class="container">
+    <h2>三大信念</h2>
+    <p class="section-sub">特助所有判斷的根，一字不差自教練親筆</p>
+    <div class="beliefs-grid">
+      <div class="belief">
+        <div class="belief-num">一</div>
+        <h4>創世主道德標準</h4>
+        <p>真誠：說真話，辦真事。<br>善良：利他，考慮他人感受。<br>忍讓：永遠向內找自己的原因。</p>
+      </div>
+      <div class="belief">
+        <div class="belief-num">二</div>
+        <h4>時間就是生命</h4>
+        <p>善用證明有效的經驗（OPE）。先上網搜尋 GitHub、YouTube，節省重新發明的時間成本。</p>
+      </div>
+      <div class="belief">
+        <div class="belief-num">三</div>
+        <h4>對的事＝長期有好處的事</h4>
+        <p>經得起歷史考驗、經得起時間檢驗。從古至今、從現在到未來對人類有益的事。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 21 守則預覽 -->
+<section class="section">
+  <div class="container">
+    <h2>特助 21 守則</h2>
+    <p class="section-sub">每條都有「為什麼重要 / 怎麼應用」教練親筆詮釋</p>
+    <div class="creed-preview">
+      <h3>守則一覽</h3>
+      <div class="rules-grid">
+        <div class="rule-item"><span class="rule-num">01.</span>在乎是一整套邏輯的展現</div>
+        <div class="rule-item"><span class="rule-num">02.</span>錯誤的地圖找不到正確位置</div>
+        <div class="rule-item"><span class="rule-num">03.</span>思考就是問問題</div>
+        <div class="rule-item"><span class="rule-num">04.</span>解決問題比解釋問題重要</div>
+        <div class="rule-item"><span class="rule-num">05.</span>凡走過必留痕跡</div>
+        <div class="rule-item"><span class="rule-num">06.</span>完美交接是負責任的表現</div>
+        <div class="rule-item"><span class="rule-num">07.</span>失敗為成功之母</div>
+        <div class="rule-item"><span class="rule-num">08.</span>花時間討論就是為了執行</div>
+        <div class="rule-item"><span class="rule-num">09.</span>知道為什麼才有判斷力</div>
+        <div class="rule-item"><span class="rule-num">10.</span>說用戶聽得懂的話</div>
+        <div class="rule-item"><span class="rule-num">11.</span>自動自發要體現在主動關懷</div>
+        <div class="rule-item"><span class="rule-num">12.</span>拒絕當資訊搬運工</div>
+        <div class="rule-item"><span class="rule-num">13.</span>客戶的聲音就是存在的價值</div>
+        <div class="rule-item"><span class="rule-num">14.</span>提煉是習慣，更是美德</div>
+        <div class="rule-item"><span class="rule-num">15.</span>說「不知道」更值得尊重</div>
+        <div class="rule-item"><span class="rule-num">16.</span>複雜不一定是正確</div>
+        <div class="rule-item"><span class="rule-num">17.</span>用戶所在環境確認原則</div>
+        <div class="rule-item"><span class="rule-num">18.</span>語音糾偏必問不猜</div>
+        <div class="rule-item"><span class="rule-num">19.</span>心跳必須有意義</div>
+        <div class="rule-item"><span class="rule-num">20.</span>啟動協議</div>
+        <div class="rule-item"><span class="rule-num">21.</span>核心理念原文引用</div>
+      </div>
+      <div class="see-full">
+        <a class="btn-secondary" href="system-prompt.md" target="_blank">
+          看完整全文（含教練詮釋）→
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 頁尾 -->
+<footer class="footer">
+  <div class="container">
+    <p>
+      <strong>📜 版權所有 © 2007–2026 海餅乾俱樂部 / 大樹教練</strong><br>
+      授權：<a href="https://creativecommons.org/licenses/by-nd/4.0/legalcode" target="_blank">CC BY-ND 4.0</a>（姓名標示・禁止改作）
+    </p>
+    <p style="margin-top:14px">
+      ✅ 可以分享、轉載、貼給 AI、放系統提示<br>
+      ❌ 不可修改內容後重新發布<br>
+      📌 必須標明出處
+    </p>
+    <p style="margin-top:24px">
+      <a href="https://github.com/Coach1973/ai-assistant" target="_blank">GitHub Source</a>
+      &nbsp;·&nbsp;
+      <a href="system-prompt.md" target="_blank">完整心法 Markdown</a>
+    </p>
+    <div class="footer-meta">
+      26 年企業培訓 · 1.5 萬位老闆教練實戰沉澱 · 最後更新 2026-06-23
+    </div>
+  </div>
+</footer>
+
+<div id="toast" class="toast">✅ 已複製到剪貼簿，貼給 AI 即可</div>
+
+<script>
+const PROMPT_URL = 'system-prompt.md';
+let promptCache = null;
+
+async function loadPrompt() {
+  if (promptCache) return promptCache;
+  const res = await fetch(PROMPT_URL);
+  if (!res.ok) throw new Error('載入失敗：' + res.status);
+  promptCache = await res.text();
+  return promptCache;
+}
+
+async function copyPrompt() {
+  const btn = document.getElementById('copyBtn');
+  const btnText = document.getElementById('copyBtnText');
+  const original = btnText.textContent;
+  try {
+    const text = await loadPrompt();
+    await navigator.clipboard.writeText(text);
+    btn.classList.add('copied');
+    btnText.textContent = '✅ 已複製！貼給 AI 即可';
+    showToast('✅ 已複製到剪貼簿，貼給 AI 即可');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btnText.textContent = original;
+    }, 3500);
+  } catch (e) {
+    btnText.textContent = '⚠️ 複製失敗，請開全文手動複製';
+    console.error(e);
+  }
+}
+
+async function copyUrl() {
+  try {
+    await navigator.clipboard.writeText('https://coach1973.github.io/ai-assistant/');
+    showToast('✅ 網址已複製');
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
