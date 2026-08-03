@@ -595,6 +595,28 @@ body {
   </div>
 </section>
 
+<!-- 教練專屬人設 -->
+<section class="section platforms-section">
+  <div class="container">
+    <div class="hero-eyebrow" style="background:rgba(74,139,112,0.12);color:var(--green-dark);">🌳 教練專屬・不是公版方法論</div>
+    <h2 style="margin-top:16px;">大樹教練的與 AI 指令設定</h2>
+    <p class="section-sub">中英對照，讓任何新 AI 30 秒認識「我是誰、怎麼跟我溝通」<br>如果你不是大樹教練本人，這段可以跳過</p>
+    <div class="copy-zone" style="border-color:var(--green);">
+      <div class="copy-zone-label" style="color:var(--green-dark);">👤 教練個人版</div>
+      <div class="copy-zone-title">複製「與大樹教練溝通設定」</div>
+      <div class="copy-zone-hint">貼在特助心法後面，讓新 AI 同時知道方法論 + 我是誰</div>
+      <button id="copyPersonaBtn" class="btn-copy" style="background:linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%); box-shadow:0 8px 24px rgba(74,139,112,0.4);" onclick="copyPersona()">
+        <span class="btn-icon">👤</span>
+        <span id="copyPersonaBtnText">一鍵複製教練人設（中英）</span>
+      </button>
+      <div class="url-zone">
+        或看完整全文：<br>
+        <a class="url-code" href="coach-persona.md" target="_blank" style="text-decoration:none;">coach-persona.md</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 頁尾 -->
 <footer class="footer">
   <div class="container">
@@ -632,12 +654,30 @@ async function loadPrompt() {
   return promptCache;
 }
 
+// 跨源 iframe fallback（Chrome 對 clipboard API 在跨源 iframe 有限制，需 focused frame）
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.top = '0';
+  ta.style.left = '0';
+  ta.style.opacity = '0';
+  ta.style.pointerEvents = 'none';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  const ok = document.execCommand('copy');
+  document.body.removeChild(ta);
+  if (!ok) throw new Error('execCommand copy failed');
+}
+
 async function copyPrompt() {
   const btn = document.getElementById('copyBtn');
   const btnText = document.getElementById('copyBtnText');
   const original = btnText.textContent;
   try {
     const text = await loadPrompt();
+    // 優先用 Clipboard API（同源 / focused frame 時最佳）
     await navigator.clipboard.writeText(text);
     btn.classList.add('copied');
     btnText.textContent = '✅ 已複製！貼給 AI 即可';
@@ -647,8 +687,67 @@ async function copyPrompt() {
       btnText.textContent = original;
     }, 3500);
   } catch (e) {
-    btnText.textContent = '⚠️ 複製失敗，請開全文手動複製';
-    console.error(e);
+    // Clipboard API 失敗（跨源 iframe / 權限被拒）→ 降級到 execCommand
+    try {
+      const text = await loadPrompt();
+      fallbackCopy(text);
+      btn.classList.add('copied');
+      btnText.textContent = '✅ 已複製（相容模式）！貼給 AI 即可';
+      showToast('✅ 已複製到剪貼簿（相容模式）');
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btnText.textContent = original;
+      }, 3500);
+    } catch (e2) {
+      // 兩個方法都失敗 → 提示用戶手動複製
+      btnText.textContent = '⚠️ 複製失敗，請用 Cmd+A 全選後 Cmd+C';
+      showToast('⚠️ 自動複製失敗，請手動選取複製');
+      console.error('Both clipboard methods failed:', e, e2);
+    }
+  }
+}
+
+const PERSONA_URL = 'coach-persona.md';
+let personaCache = null;
+
+async function loadPersona() {
+  if (personaCache) return personaCache;
+  const res = await fetch(PERSONA_URL);
+  if (!res.ok) throw new Error('載入失敗：' + res.status);
+  personaCache = await res.text();
+  return personaCache;
+}
+
+async function copyPersona() {
+  const btn = document.getElementById('copyPersonaBtn');
+  const btnText = document.getElementById('copyPersonaBtnText');
+  const original = btnText.textContent;
+  try {
+    const text = await loadPersona();
+    await navigator.clipboard.writeText(text);
+    btn.classList.add('copied');
+    btnText.textContent = '✅ 已複製！貼在特助心法後面即可';
+    showToast('✅ 教練人設已複製到剪貼簿');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btnText.textContent = original;
+    }, 3500);
+  } catch (e) {
+    try {
+      const text = await loadPersona();
+      fallbackCopy(text);
+      btn.classList.add('copied');
+      btnText.textContent = '✅ 已複製（相容模式）！';
+      showToast('✅ 教練人設已複製（相容模式）');
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btnText.textContent = original;
+      }, 3500);
+    } catch (e2) {
+      btnText.textContent = '⚠️ 複製失敗，請用 Cmd+A 全選後 Cmd+C';
+      showToast('⚠️ 自動複製失敗，請手動選取複製');
+      console.error('Both persona clipboard methods failed:', e, e2);
+    }
   }
 }
 
@@ -657,7 +756,14 @@ async function copyUrl() {
     await navigator.clipboard.writeText('https://coach1973.github.io/ai-go/');
     showToast('✅ 網址已複製');
   } catch (e) {
-    console.error(e);
+    // 降級：execCommand
+    try {
+      fallbackCopy('https://coach1973.github.io/ai-go/');
+      showToast('✅ 網址已複製（相容模式）');
+    } catch (e2) {
+      console.error('copyUrl failed:', e, e2);
+      showToast('⚠️ 複製失敗，請手動選取網址');
+    }
   }
 }
 

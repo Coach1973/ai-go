@@ -22,7 +22,8 @@
 ## 📂 檔案結構
 
 - [`index.html`](index.html) — 給人看的一頁式視覺化網站
-- [`system-prompt.md`](system-prompt.md) — 給 AI 吃的純文字注入版（一份打死）
+- [`system-prompt.md`](system-prompt.md) — 給 AI 吃的純文字注入版（公版方法論，任何人可用）
+- [`coach-persona.md`](coach-persona.md) — 大樹教練個人的「如何與我溝通」中英對照版，僅供教練本人使用，貼在 system-prompt.md 後面
 - [`LICENSE`](LICENSE) — CC BY-ND 4.0 授權條款
 
 ## 📜 授權（CC BY-ND 4.0）
