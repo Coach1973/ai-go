@@ -605,15 +605,17 @@ body {
     <h2 style="margin-top:16px;">大樹教練的與 AI 指令設定</h2>
     <p class="section-sub">中英對照，讓任何新 AI 30 秒認識「我是誰、怎麼跟我溝通」<br>如果你不是大樹教練本人，這段可以跳過</p>
     <div class="copy-zone" style="border-color:var(--green);">
-      <div class="copy-zone-label" style="color:var(--green-dark);">👤 教練個人版</div>
-      <div class="copy-zone-title">複製「與大樹教練溝通設定」</div>
-      <div class="copy-zone-hint">貼在特助心法後面，讓新 AI 同時知道方法論 + 我是誰</div>
-      <button id="copyPersonaBtn" class="btn-copy" style="background:linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%); box-shadow:0 8px 24px rgba(74,139,112,0.4);" onclick="copyPersona()">
+      <div class="copy-zone-label" style="color:var(--green-dark);">👤 教練個人版・一次到位</div>
+      <div class="copy-zone-title">複製「特助心法＋與我溝通設定」完整包</div>
+      <div class="copy-zone-hint">認識新 AI（例：Meta、Grok）時用這顆——一次貼上，AI 同時知道方法論 + 我是誰，不用分兩次貼</div>
+      <button id="copyFullBtn" class="btn-copy" style="background:linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%); box-shadow:0 8px 24px rgba(74,139,112,0.4);" onclick="copyFullPackage()">
         <span class="btn-icon">👤</span>
-        <span id="copyPersonaBtnText">一鍵複製教練人設（中英）</span>
+        <span id="copyFullBtnText">一鍵複製完整版（心法＋人設）</span>
       </button>
       <div class="url-zone">
-        或看完整全文：<br>
+        只需要人設那一小段？<br>
+        <span class="url-code" onclick="copyPersona()" title="只複製人設">單獨複製教練人設</span>
+        &nbsp;或看全文：
         <a class="url-code" href="coach-persona.md" target="_blank" style="text-decoration:none;">coach-persona.md</a>
       </div>
     </div>
@@ -722,26 +724,44 @@ async function loadPersona() {
 }
 
 async function copyPersona() {
-  const btn = document.getElementById('copyPersonaBtn');
-  const btnText = document.getElementById('copyPersonaBtnText');
-  const original = btnText.textContent;
   try {
     const text = await loadPersona();
     await navigator.clipboard.writeText(text);
+    showToast('✅ 教練人設已複製到剪貼簿（記得貼在特助心法後面）');
+  } catch (e) {
+    try {
+      const text = await loadPersona();
+      fallbackCopy(text);
+      showToast('✅ 教練人設已複製（相容模式）');
+    } catch (e2) {
+      showToast('⚠️ 自動複製失敗，請改用下方連結開全文手動複製');
+      console.error('Both persona clipboard methods failed:', e, e2);
+    }
+  }
+}
+
+async function copyFullPackage() {
+  const btn = document.getElementById('copyFullBtn');
+  const btnText = document.getElementById('copyFullBtnText');
+  const original = btnText.textContent;
+  try {
+    const [prompt, persona] = await Promise.all([loadPrompt(), loadPersona()]);
+    const combined = prompt + '\n\n---\n\n' + persona;
+    await navigator.clipboard.writeText(combined);
     btn.classList.add('copied');
-    btnText.textContent = '✅ 已複製！貼在特助心法後面即可';
-    showToast('✅ 教練人設已複製到剪貼簿');
+    btnText.textContent = '✅ 已複製！貼給新 AI 即可';
+    showToast('✅ 心法＋人設已合併複製，直接貼給新 AI');
     setTimeout(() => {
       btn.classList.remove('copied');
       btnText.textContent = original;
     }, 3500);
   } catch (e) {
     try {
-      const text = await loadPersona();
-      fallbackCopy(text);
+      const [prompt, persona] = await Promise.all([loadPrompt(), loadPersona()]);
+      fallbackCopy(prompt + '\n\n---\n\n' + persona);
       btn.classList.add('copied');
       btnText.textContent = '✅ 已複製（相容模式）！';
-      showToast('✅ 教練人設已複製（相容模式）');
+      showToast('✅ 已複製（相容模式），直接貼給新 AI');
       setTimeout(() => {
         btn.classList.remove('copied');
         btnText.textContent = original;
@@ -749,7 +769,7 @@ async function copyPersona() {
     } catch (e2) {
       btnText.textContent = '⚠️ 複製失敗，請用 Cmd+A 全選後 Cmd+C';
       showToast('⚠️ 自動複製失敗，請手動選取複製');
-      console.error('Both persona clipboard methods failed:', e, e2);
+      console.error('Both full-package clipboard methods failed:', e, e2);
     }
   }
 }
