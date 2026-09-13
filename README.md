@@ -57,5 +57,6 @@
 
 ---
 
-> 製作：大樹教練體系 · Mac 終端機軍師 Opus 4.7（2026-06-23）
+> 製作：大樹教練體系 · Mac 終端機軍師（Claude）
 > 上線於 [coach1973.github.io/ai-go/](https://coach1973.github.io/ai-go/)
+> 最後內容更新：2026-09-14
