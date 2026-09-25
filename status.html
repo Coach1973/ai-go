@@ -61,7 +61,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
 <h1>隨身軍師・一鍵接手｜大樹教練工作最新交接棒（公開版）</h1>
 <blockquote>
 <p>貼上這個網址，任何 AI 立刻變成大樹教練的軍師，接手目前的工作進度。
-最後更新：2026-09-25 13:10（台灣時間）
+最後更新：2026-09-25 14:20（台灣時間）
 每次大樹教練說「總結」，由他 Mac 上的 AI 軍師（Claude）自動改寫這一頁。
 <strong>要貼給 AI 的網址（支援所有主流 AI）：<a href="https://coach1973.github.io/ai-go/status.html">https://coach1973.github.io/ai-go/status.html</a></strong>
 純文字版（給不能讀 HTML 的工具用）：<a href="https://coach1973.github.io/ai-go/status.md">https://coach1973.github.io/ai-go/status.md</a>
@@ -135,8 +135,8 @@ hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
 <tr>
 <td>1</td>
 <td>Claude 用量管理：每週額度（每週三 13:00 重置）到週五中午已用掉約 56%，週末可能用完</td>
-<td>進行中</td>
-<td>思考型問題改到其他網頁版 AI（讀這一頁的你）；庶務交給 Sonnet，重大決策才用 Opus</td>
+<td>這一頁已上線可用</td>
+<td>觀察教練實際把問題分流給其他網頁版 AI 後，額度消耗有沒有真的緩解</td>
 </tr>
 <tr>
 <td>2</td>
@@ -171,6 +171,9 @@ hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
 <li>❌ 讓網頁版 AI 讀教練的私人資料庫：讀不到（實測回 404），所以才有這一頁公開版。</li>
 <li>❌ 改用 claude.ai/code 雲端工作頁來省額度：它跟 Claude 共用同一份每週額度，省不到。</li>
 <li>❌ 每次開新對話重講一次現況：這正是要消滅的浪費。</li>
+<li><strong>這一頁的技術路</strong>：</li>
+<li>❌ 只發布純文字 <code>.md</code> 版本：GitHub 幫 <code>.md</code> 檔案標記的類型多數 AI 讀網頁工具認不得，會回報「讀不到／被屏蔽」，其實只是類型不對，不是真的被擋。已改成 <code>.md</code> 當來源、自動轉出 <code>.html</code> 當主要網址。</li>
+<li>❌ 期待「總結」讓其他網頁版 AI（ChatGPT/Gemini/Grok）自己寫回這一頁：技術上做不到，它們碰不到教練 Mac 的檔案系統。這個自動更新只在教練跟軍師（Mac 本機／雲端工作頁）對話時生效。跟其他 AI 討論出來的東西，要教練帶回來跟軍師說，才能寫進來。</li>
 </ul>
 <h2>決策紀錄（已定案，不要重新討論）</h2>
 <ul>
@@ -180,12 +183,14 @@ hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
 <li><strong>每一條規則都要有自動機制撐著</strong>，不靠 AI 記得；同一類錯犯第二次，就改機制，不再多加一條規則。（9/24）</li>
 <li><strong>問教練之前先過三關</strong>：只有教練能做、教練沒回答過、現在不問會卡住。三關都過才問，每件事最多問一次。（9/24）</li>
 <li><strong>方法論原文不改寫</strong>（CC BY-ND 4.0），只引用。</li>
+<li><strong>公開給 AI 讀的頁面一律要有 <code>.html</code> 版本</strong>，<code>.md</code> 只當備用；同一頁引用出去的其他文件也要一起檢查、一起轉。（9/25）</li>
 </ul>
 <h2>最近進展（新的在上面）</h2>
 <ul>
 <li><strong>9/25</strong></li>
-<li>雲端工作頁跟 Mac 規則同步上線。</li>
-<li>建立這一頁「隨身軍師」，並收進大樹作品一覽；吸收網頁版 Opus 提的交接棒寫法（加了「已排除的做法」「決策紀錄」「詞彙表」）。</li>
+<li>建立這一頁「隨身軍師」並上線，收進大樹作品一覽；吸收網頁版 Opus 提的交接棒寫法（加了「已排除的做法」「決策紀錄」「詞彙表」）。</li>
+<li>教練實測發現其他 AI 讀不到，查出真因是檔案類型問題，改成 <code>.md</code>+<code>.html</code> 雙版本；教練追問揪出另外兩份被引用的文件也有同樣問題，一併修好。</li>
+<li>雲端工作頁跟 Mac 規則同步上線；順便修正教練品牌數據「1.5 萬位老闆」→「6,000+ 場演講、10 萬人受眾」。</li>
 <li>「模型分工」規則上線。</li>
 <li>修好赫米斯（Hermes）每次登入電腦就自己跳出來的問題，並加裝「視窗一律開在主螢幕」的防呆。</li>
 <li><strong>9/24</strong></li>
