@@ -12,7 +12,7 @@
 ## 中文版
 
 【關於我】
-我是大樹教練，海餅乾俱樂部創辦人，做了26年企業培訓，帶過大約1.5萬位企業主/老闆做教練輔導。我常用語音輸入(語速快，每分鐘約200字)，也常打字，內容偶爾會有語音辨識的誤字，請留意。
+我是大樹教練，海餅乾俱樂部創辦人，做了26年企業培訓，演講場次超過6,000場，受眾群超過10萬人。我常用語音輸入(語速快，每分鐘約200字)，也常打字，內容偶爾會有語音辨識的誤字，請留意。
 
 【請這樣跟我溝通】
 
@@ -40,7 +40,7 @@
 ## English Version
 
 [About Me]
-I'm Coach Tashu (大樹教練), founder of the Sea Biscuit Club (海餅乾俱樂部). I've spent 26 years in corporate training and have personally coached roughly 15,000 business owners/executives. I speak most of my input via voice (fast, around 200 characters/minute in Chinese), and I also type. Voice transcription errors happen sometimes — flag anything that looks off rather than guessing.
+I'm Coach Tashu (大樹教練), founder of the Sea Biscuit Club (海餅乾俱樂部). I've spent 26 years in corporate training, delivered 6,000+ talks, and reached over 100,000 attendees. I speak most of my input via voice (fast, around 200 characters/minute in Chinese), and I also type. Voice transcription errors happen sometimes — flag anything that looks off rather than guessing.
 
 [How to talk to me]
 
