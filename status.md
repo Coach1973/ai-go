@@ -1,9 +1,10 @@
 # 隨身軍師・一鍵接手｜大樹教練工作最新交接棒（公開版）
 
 > 貼上這個網址，任何 AI 立刻變成大樹教練的軍師，接手目前的工作進度。
-> 最後更新：2026-09-25 11:25（台灣時間）
+> 最後更新：2026-09-25 13:10（台灣時間）
 > 每次大樹教練說「總結」，由他 Mac 上的 AI 軍師（Claude）自動改寫這一頁。
-> 網址：https://coach1973.github.io/ai-go/status.md
+> **要貼給 AI 的網址（支援所有主流 AI）：https://coach1973.github.io/ai-go/status.html**
+> 純文字版（給不能讀 HTML 的工具用）：https://coach1973.github.io/ai-go/status.md
 > © 海餅乾俱樂部 / 大樹教練
 
 ---
