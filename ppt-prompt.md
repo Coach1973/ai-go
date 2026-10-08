@@ -56,10 +56,20 @@ python3 brand_pptx.py --src 簡報.pdf --bg 底圖.jpg --dry-run
 
 不滿意自動選的，用 `--mode mask|safe|overlay` 強制指定。
 
+🔴 **BNI 底圖（BNI ACCELERATE）一律滿版**：必須加 `--mode mask`，不准用預設的 auto，**禁止 `safe`、禁止 `--fill contain`**。`safe` 會把內容縮成中間一塊、四周留白，不是 BNI 要的滿版。（教練 2026-10-08 糾正：聯想照舊指令跑成縮小。）
+
 ## 第 3 步：跑
+
+一般底圖：
 
 ```bash
 python3 brand_pptx.py --src 簡報.pdf --bg 底圖.jpg --out 成品.pptx
+```
+
+BNI 底圖（必須用這一行）：
+
+```bash
+python3 brand_pptx.py --src 簡報.pdf --bg BNI_ACCELERATE_底圖.jpg --out 簡報_BNI版.pptx --mode mask
 ```
 
 會在成品旁邊建立 `成品_work/` 資料夾，裡面有每頁合成圖和 `contact.png`（所有頁縮圖總覽）。
@@ -81,7 +91,7 @@ python3 brand_pptx.py --src 簡報.pdf --bg 底圖.jpg --out 成品.pptx
 | 底圖上的淡色浮水印／陰影被誤當成品牌元素，內容被擠小 | `--tol 70`（提高門檻，淡色不算） |
 | 淡色的 LOGO 沒被偵測到、被蓋掉 | `--tol 20`，或用 `--protect-box x0,y0,x1,y1` 直接圈起來（比例 0~1） |
 | `safe` 模式內容放得太小（例如乾淨區被一個小 LOGO 切到） | 用 `--safe-box x0,y0,x1,y1` 手動指定內容區，或改 `--mode mask` |
-| `mask` 模式重要內容被裁掉 | 改 `--mode safe`，或 `--fill cover` 搭配 `--safe-box` |
+| `mask` 模式重要內容被裁掉 | 一般底圖可改 `--mode safe`，或 `--fill cover` 搭配 `--safe-box`。**BNI 底圖不准改 safe**，接受邊緣裁切，回報教練由他決定 |
 | 文字不夠清晰 | `--dpi 200` |
 | 底圖與簡報比例差很多 | 不用處理：投影片尺寸會自動跟底圖比例一致 |
 
@@ -96,11 +106,13 @@ python3 brand_pptx.py --src 簡報.pdf --bg 底圖.jpg --out 成品.pptx
 ## 範例：BNI ACCELERATE 底圖
 
 BNI 底圖左下是 LOGO、右下是紅色弧形裝飾，屬於「小面積品牌元素在角落」，
-自動選 `mask`：內容滿版鋪滿、兩個角落完整保留。不需要任何額外參數：
+**必須用 `--mode mask`**：內容滿版鋪滿整頁，只避開左下 LOGO 與右下紅色弧形。
 
 ```bash
-python3 brand_pptx.py --src 簡報.pdf --bg BNI_ACCELERATE_底圖.jpg --out 簡報_BNI版.pptx
+python3 brand_pptx.py --src 簡報.pdf --bg BNI_ACCELERATE_底圖.jpg --out 簡報_BNI版.pptx --mode mask
 ```
+
+驗收：每頁插圖貼齊四邊、沒有白邊或縮小；左下 BNI ACCELERATE LOGO 與右下紅色弧形都還在。看到白邊代表模式錯了，重跑加 `--mode mask`，不要手動調 `--safe-box`。
 
 ---
 
