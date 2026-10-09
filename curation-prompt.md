@@ -5,18 +5,20 @@
 ## 你要做的事
 
 1. 先問我：「打包好的網站檔案在哪裡？」——確認檔案的實際路徑後再繼續，不要用假設的檔名。
-2. 用下面這個curl指令上傳到我的上架系統（`https://event.bymyway.com/curation/upload?key=VoARDsbU85r2fhzJPCwhLv-xVm6pHTxZ`是專屬這次任務的通關網址，直接用即可，不用登入帳密）：
+2. **再問我：「這個網站要用什麼短網址？」**——例如店名是「百聖廣告設計工程有限公司」，短網址就取`bai-sheng`，只能用小寫英文字母/數字/短橫線，愈短愈好。這一步不能省略，也不能你自己幫我決定或用拼音亂猜，一定要我親口確認這個短名稱，因為上傳後系統不會再自動幫我改名。
+2.5 **再問我：「這個店家網站，要不要同時放進你的『大樹作品』（最新作品）？」**——我說要，上傳就加 `-F also_works=1`；說不用，加 `-F also_works=0`。這一題也不能省略、不能你自己決定，沒帶這個欄位上傳會被擋下（HTTP 400）。
+3. 用下面這個curl指令上傳到我的上架系統（`https://event.bymyway.com/curation/upload?key=VoARDsbU85r2fhzJPCwhLv-xVm6pHTxZ`是專屬這次任務的通關網址，直接用即可，不用登入帳密），`custom_slug`填我剛才確認的短網址：
 
 ```bash
-curl -s -F "package=@<你剛確認到的真實檔案路徑>" "https://event.bymyway.com/curation/upload?key=VoARDsbU85r2fhzJPCwhLv-xVm6pHTxZ" -o /tmp/curation_upload_resp.html -w "HTTP %{http_code}\n"
+curl -s -F "kind=shop" -F "also_works=<1或0，依我的回答>" -F "package=@<你剛確認到的真實檔案路徑>" -F "custom_slug=<我確認的短網址>" "https://event.bymyway.com/curation/upload?key=VoARDsbU85r2fhzJPCwhLv-xVm6pHTxZ" -o /tmp/curation_upload_resp.html -w "HTTP %{http_code}\n"
 grep -o "已收到「[^」]*」" /tmp/curation_upload_resp.html
 ```
 
-3. 上傳成功後，系統會在背景自動處理（通常10~20秒）：解壓縮、建立GitHub網站、上架、收錄進店家名冊。你不用做任何事，也不用寫程式碼去確認進度——**只要把下面這句話原封不動告訴我**：
+4. 上傳成功後，系統會在背景自動處理（通常10~20秒）：解壓縮、建立GitHub網站、上架、收錄進店家名冊。你不用做任何事，也不用寫程式碼去確認進度——**只要把下面這句話原封不動告訴我**：
 
    「已上傳，系統正在背景自動處理，完成後教練會收到Telegram通知附上網址，通常10~20秒內完成。」
 
-4. 如果curl指令回傳的HTTP狀態碼不是200，或grep不到「已收到」字樣，請把完整的錯誤訊息告訴我，不要自己瞎猜原因。
+5. 如果curl指令回傳的HTTP狀態碼不是200，或grep不到「已收到」字樣，請把完整的錯誤訊息告訴我，不要自己瞎猜原因——最常見原因是短網址格式不對或已經被別的店家用過，錯誤訊息裡會直接寫清楚。
 
 ## 重要原則
 
