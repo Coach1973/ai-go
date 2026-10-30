@@ -94,6 +94,7 @@
 #!/usr/bin/env python3
 """LK888 單張出圖。已存在的檔案預設跳過，避免重複扣點。
 用法: python3 lk888_generate.py --prompt-file p.txt --out images/hero.png [--size 1024x1024] [--dry-run] [--force]
+出圖當下會另存一張網頁小圖 hero.web.webp（長邊 1000、webp 品質 72，約 50～120KB）；網頁只放小圖，原 PNG（2～3MB）留作備份。
 """
 import argparse, base64, json, os, sys, urllib.request, urllib.error
 from pathlib import Path
@@ -146,6 +147,16 @@ def main():
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_bytes(img)
     print(f"OK {out} ({len(img)//1024} KB)")
+    # 網頁用小圖：LK888 原圖 2～3MB，網頁用不到。長邊 1000、webp 品質 72，手機與電腦看都清楚
+    try:
+        from PIL import Image
+        im = Image.open(out).convert("RGB")
+        im.thumbnail((1000, 1000), Image.LANCZOS)
+        web = out.with_suffix(".web.webp")
+        im.save(web, "WEBP", quality=72, method=6)
+        print(f"WEB {web} ({web.stat().st_size//1024} KB)  ← 放進網頁用這張")
+    except ImportError:
+        print("提醒：沒裝 Pillow（pip install pillow），沒產生網頁小圖；請另外壓成長邊 1000、webp 品質 72 再放進網頁")
 
 if __name__ == "__main__":
     main()
@@ -171,7 +182,7 @@ if __name__ == "__main__":
 ## 第 6 步：放進專案
 
 - 用新檔名存（例如 `hero-v1.png`），不覆蓋已交付的檔案。
-- 網頁用：轉成 WebP 或壓成 JPG，目標單張 300 KB 以下；寫 `alt` 文字；設 `width`／`height` 避免版面跳動。
+- 網頁用：**LK888 的原圖（約 2～3 MB）一律不直接放進網頁**。出圖腳本會自動另存 `.web.webp` 小圖（長邊 1000 px、webp 品質 72，約 50～120 KB，手機與電腦看都清楚），網頁就放這張；原 PNG 留作備份。寫 `alt` 文字；設 `width`／`height` 避免版面跳動。
 - 放進頁面後，用手機寬度與桌機寬度各看一次，確認裁切與文字可讀。
 - 簡單問題（裁切、補邊）直接處理並說明做了什麼，不要為了小修再花一點出圖。
 - 把這次新增的圖與使用的指令摘要補進 `.image-style.md` 的「參考檔」，下次風格就接得上。
